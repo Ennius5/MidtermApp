@@ -25,12 +25,13 @@ public class BaseNumCalc extends Fragment {
     private TextInputEditText inputNumber;
     private TextInputLayout inputLayout;
     private Spinner spinnerOriginal, spinnerResult;
-    private TextView resultText;
+    private TextView resultText, allresultText;
     private Button convertButton;
 
     // Base options
     private String[] bases = {"Binary (2)", "Octal (8)", "Decimal (10)", "Hexadecimal (16)"};
     private final int[] baseValues = {2, 8, 10, 16};
+    private final String[] baseValueNames = {"Binary", "Octal", "Decimal", "Hexadecimal"};
 
     public BaseNumCalc() {
         // Required empty public constructor
@@ -72,6 +73,7 @@ public class BaseNumCalc extends Fragment {
         spinnerOriginal = view.findViewById(R.id.spinner_original);
         spinnerResult = view.findViewById(R.id.spinner_result);
         resultText = view.findViewById(R.id.Result);
+        allresultText = view.findViewById(R.id.otherResults);
         convertButton = view.findViewById(R.id.convertButton);
     }
 
@@ -115,8 +117,10 @@ public class BaseNumCalc extends Fragment {
             int toBase = baseValues[spinnerResult.getSelectedItemPosition()];
 
             String result = convertBase(input, fromBase, toBase);
-            resultText.setText(result);
+            String totalResult = converttoOthers(input,fromBase);
 
+            resultText.setText(result);
+            allresultText.setText(totalResult);
         } catch (NumberFormatException e) {
             showError("Invalid number for selected base");
         } catch (Exception e) {
@@ -142,15 +146,41 @@ public class BaseNumCalc extends Fragment {
         } else {
             return Long.toString(decimalValue, toBase).toUpperCase();
         }
+
+
     }
 
+    /**
+     * No matter what base, gets converted anyway
+     * */
+    private String converttoOthers(String number, int fromBase){
+        StringBuilder totality = new StringBuilder();
+        long decimalValue;
+        if (fromBase == 10) {
+            decimalValue = Long.parseLong(number);
+        } else {
+            decimalValue = Long.parseLong(number, fromBase);
+        }
+
+        //all the values are converted then the kak is fed into the totality
+        int i = 0;
+        for(int toBase : baseValues){
+
+            totality.append( baseValueNames[i] +" : "+Long.toString(decimalValue,toBase).toUpperCase()+"\n");
+            i++;
+        }
+        return totality.toString();
+    }
     private void showError(String errorMessage) {
         inputLayout.setError(errorMessage);
         resultText.setText("ERROR");
+        allresultText.setText("ERROR");
+
     }
 
     private void clearError() {
         inputLayout.setError(null);
+
     }
 
 

@@ -84,12 +84,12 @@
 
                         <TextView
                             android:id="@+id/textView4"
-                            android:layout_width="wrap_content"
+                            android:layout_width="108dp"
                             android:layout_height="wrap_content"
+                            android:layout_margin="8dp"
                             android:gravity="center"
                             android:text=">>>"
-                            android:textSize="18sp"
-                            android:layout_margin="8dp" />
+                            android:textSize="18sp" />
 
                         <Spinner
                             android:id="@+id/spinner_result"
@@ -108,11 +108,21 @@
                             android:id="@+id/convertButton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Convert"
                             android:layout_gravity="center"
-                            android:layout_marginTop="20dp" />
+                            android:layout_marginTop="1dp"
+                            android:text="Convert" />
+
                     </TableRow>
                 </TableLayout>
+
+                <TextView
+                    android:id="@+id/otherResults"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:gravity="center"
+                    android:text="All conversion results show here"
+                    android:textSize="34sp" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
